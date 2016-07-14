@@ -45,6 +45,13 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButton("Horizontal") && Mathf.Abs(vel.x) < speed)
             {
                 vel.x += Input.GetAxisRaw("Horizontal");
+                if (Input.GetAxis("Horizontal") > 0)
+                {
+                    transform.Rotate(0, 90, 0);
+                }else
+                {
+                    transform.Rotate(0, 270, 0);
+                }
             }
             else {
                 // friction stuff (TODO: Make neater)
@@ -66,6 +73,14 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButton("Vertical") && Mathf.Abs(vel.z) < speed)
             {
                 vel.z += Input.GetAxisRaw("Vertical");
+                if (Input.GetAxis("Vertical") > 0)
+                {
+                    transform.Rotate(0, 0, 0);
+                }
+                else
+                {
+                    transform.Rotate(0, 180, 0);
+                }
             }
             else {
                 // friction stuff (TODO: Make neater)
@@ -92,11 +107,17 @@ public class PlayerController : MonoBehaviour
                     yVel = jumpSpeed;
                 }
 
-                if (Input.GetButton("Fire3")) //rolling
+                if (Input.GetButton("Fire3")) //rolling (MAY BE TEMPORARY until rotations are implemented)
                 {
                     rolling = true;
                     rollTimer = rollTime;
-                    vel = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")) * (rollDistance / rollTime);
+                    if (Input.GetAxisRaw("Horizontal")  != 0 && Input.GetAxisRaw("Vertical") != 0)//Diagonal roll
+                    {
+                        vel = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")) * (rollDistance / rollTime) / 1.5f;
+                    }
+                    else { //Not diagonal
+                        vel = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")) * (rollDistance / rollTime);
+                    }
                 }
 
             }
