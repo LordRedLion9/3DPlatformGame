@@ -22,8 +22,7 @@ public class gemCollectable : Collectable {
 
     protected override void toTrigger()
     {
-        print("Child trigger");
-        this.gameObject.SetActive(false);
+        remove();
     }
 
 

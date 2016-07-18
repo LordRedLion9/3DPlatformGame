@@ -1,36 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Collectable : MonoBehaviour {
+public abstract class DestructableObject : MonoBehaviour {
 
     protected GameObject gObj;
     protected Rigidbody rb;
 
-
-	
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         gObj = this.gameObject;
         rb = this.GetComponent<Rigidbody>();
 
         toStart();
     }
-	
-	
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         toUpdate();
 	}
-
-    
-    protected void remove()
-    {
-        Destroy(gObj);
-    }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            print("Parent trigger");
             toTrigger();
         }
     }
@@ -38,6 +31,4 @@ public abstract class Collectable : MonoBehaviour {
     protected abstract void toTrigger();
     protected abstract void toStart();
     protected abstract void toUpdate();
-    protected abstract void animate();
-
 }
